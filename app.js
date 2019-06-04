@@ -21,6 +21,7 @@ app.set('view engine', 'ejs');
 // peg på den mappe hvor alle views filerne er placeret
 app.set('views', './server/views');
 
+app.locals.dateAndTime = require('date-and-time');
 
 
 /* indlæs alle de routes serveren skal håndtere
