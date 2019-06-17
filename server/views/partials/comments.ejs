@@ -11,7 +11,8 @@
     </div>
     <div class="comments-text">
         <a href="#"><%= comment.name %><span>on</span> Facebook is offering facial recognition...</a>
-        <p>06:34 am, April 14, 2018</p>
+        <% let now = new Date('2019-04-14 07:00:14'); %>
+        <%= dateAndTime.format(now, 'h:mm A | MMMM DD') %>
     </div>
 </div>
 <%}) %>
