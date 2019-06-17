@@ -5,13 +5,6 @@ module.exports = (app) => {
       console.log(date.format(now, 'h:mm A | MMMM DD'));
    });
 };
-
-ELECT category_id, category_title 
-      FROM categories
-      ORDER BY category_title ASC`);
-   db.end();
-   return categories;
-}
    
    module.exports = (app) => {
 
