@@ -1,98 +1,117 @@
+const date = require('date-and-time');
 module.exports = (app) => {
-
    app.get('/', (req, res, next) => {
-      let posts = [
-         {
-            "title": "Computer",
-            "text": "Flere og flere haveejere anskaffer sig moskusænder. Det skyldes ikke alene deres appetit for dræbersnegle, men...",
-            "photo": "img/bg-img/12.jpg"
-         },
-         {
-            "title": "Bøger",
-            "text": "Endnu engang stiger bogsalget i Randers, og forlagschefen for RAND PRESS mener at det skyldes det særligt bløde papir...",
-            "photo": "img/bg-img/13.jpg"
-         },
-         {
-            "title": "Mænd der læser",
-            "text": "Over hele verden falder antallet af mandlige litteraturinteresserede. Et studie peger på at det kan skyldes de kedelige bøger...",
-            "photo": "img/bg-img/14.jpg"
-         },
-         {
-            "title": "Biler på fortorvet",
-            "text": "For fjerde år i træk løber fodgængerfri søndag af stablen i Randers. Arrangementet er inspirerede at de bilfri søndage under oliekrisen...",
-            "photo": "img/bg-img/15.jpg"
-         }
-      ];
-
-      let asides = [
-         {
-            "title": "Nyhed1",
-            "text": "Jamen altså jamen altså jamen altså.",
-            "photo": "img/bg-img/19.jpg"
-         },
-         {
-            "title": "Nyhed2",
-            "text": "Hvor gammel bliver en ræv? Ikke så gammel som man regner med.",
-            "photo": "img/bg-img/20.jpg"
-         },
-         {
-            "title": "Nyhed3",
-            "text": "Biler er vigtigere end drager.",
-            "photo": "img/bg-img/21.jpg"
-         },
-         {
-            "title": "Nyhed4",
-            "text": "Vi kan bestille tid senere, men far må ikke røre ved nougaten.",
-            "photo": "img/bg-img/22.jpg"
-         },
-         {
-            "title": "Nyhed5",
-            "text": "Flere og flere mennesker taber sandalerne. FN kalder det den største trussel mod sure tæer.",
-            "photo": "img/bg-img/23.jpg"
-         },
-         {
-            "title": "Nyhed6",
-            "text": "Egentlig er det for sent, men Langø kommune lemper nu reglerne for glasøjne.",
-            "photo": "img/bg-img/24.jpg"
-         }
-      ];
-
-      res.render('home', {
-         "homePosts": posts,
-         "asidePosts": asides
-      });
+      let now = new Date('2019-01-14 07:00:14');
+      console.log(date.format(now, 'h:mm A | MMMM DD'));
    });
-
-   app.get('/about', (req, res, next) => {
-      res.render('about');
-   });
-
-   app.get('/contact', (req, res, next) => {
-      res.render('contact');
-   });
-
-   app.get('/categories-post', (req, res, next) => {
-      res.render('categories-post');
-   });
-
-   app.get('/single-post', (req, res, next) => {
-      res.render('single-post');
-   });
-
-   app.get('/hidden', (req, res, next) => {
-      res.redirect('/contact');
-   });
-
-   app.get('/fisk/:antal/:type',  (req, res, next) => {
-
-      let fiskData = {
-         antal: req.params.antal,
-         type: req.params.type
-      }
-
-   res.render('fisk', {
-      'fiskData': fiskData
-      });
-   });
-
 };
+   
+   module.exports = (app) => {
+
+      app.get('/', (req, res, next) => {
+         let comments = [
+            {
+               "name":"rasmus",
+               "text":"Hej venner",
+               "dato":"12-04-2018"
+            },
+            {
+               "name":"rasmu",
+               "text":"ej venner",
+               "dato":"22-04-2018"
+            },
+            {
+               "name":"asmus",
+               "text":"venner",
+               "dato":"02-04-2018"
+            }
+         ]
+         res.render('home', {
+            "comments": comments
+         });
+      });
+
+      app.get('/about', (req, res, next) => {
+         res.render('about');
+      });
+   
+      app.get('/contact', (req, res, next) => {
+         res.render('contact');
+      })
+
+      app.post('/contact', (req, res, next) => {
+         res.send(req.body);
+      });
+   
+      app.get('/categories-post', (req, res, next) => {
+         res.render('categories-post');
+      });
+   
+      app.get('/single-post', (req, res, next) => {
+         res.render('single-post');
+      });
+
+      app.post('/contact', async (req, res, next) => {
+
+         // indsamling af værdierne og oprettelse af de nødvendige variabler.
+         let name = req.body.name;
+         let email = req.body.email;
+         let subject = req.body.subject;
+         let message = req.body.message;
+         let contactDate = new Date();
+      
+         // håndter valideringen, alle fejl pushes til et array så de er samlet ET sted
+         let return_message = [];
+         if (name == undefined || name == '') {
+            return_message.push('Navn mangler');
+         }
+         if (email == undefined || email == '') {
+            return_message.push('Email mangler');
+         }
+         if (subject == undefined || subject == '') {
+            return_message.push('Emne mangler');
+         }
+         if (message == undefined || message == '') {
+            return_message.push('Beskedteksten mangler');
+         }
+      
+         // dette er et kort eksempel på strukturen, denne udvides selvfølgelig til noget mere brugbart
+         // hvis der er 1 eller flere elementer i `return_message`, så mangler der noget
+         if (return_message.length > 0) {
+            // der er mindst 1 information der mangler, returner beskeden som en string.
+            let categories = await getCategories(); // denne forklares lige om lidt!
+            res.render('contact', {
+               'categories': categories,
+               'return_message': return_message.join(', '),
+               'values': req.body // læg mærke til vi "bare" sender req.body tilbage
+            });
+         
+         } else {
+            res.send(req.body);
+         }
+
+         let db = await mysql.connect();
+let result = await db.execute(`
+   INSERT INTO messages 
+      (message_name, message_email, message_subject, message_text, message_date) 
+   VALUES 
+      (?,?,?,?,?)`, [name, email, subject, message, contactDate]);
+db.end();
+
+// affected rows er større end nul, hvis en (eller flere) række(r) blev indsat
+if (result[0].affectedRows > 0) {
+   return_message.push('Tak for din besked, vi vender tilbage hurtigst muligt');
+} else {
+   return_message.push('Din besked blev ikke modtaget.... ');
+}
+
+let categories = await getCategories(); // denne har jeg ikke forklaret endnu! 
+res.render('contact', {
+   'categories': categories,
+   'return_message': return_message.join(', '),
+   'values': req.body
+});
+
+      });
+
+   };
