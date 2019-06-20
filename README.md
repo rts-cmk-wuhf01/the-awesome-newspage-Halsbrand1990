@@ -1,6 +1,6 @@
 # The Awesome Newspage
 
-# Rasmus 
+# Rasmus
 
 ## Installation
 

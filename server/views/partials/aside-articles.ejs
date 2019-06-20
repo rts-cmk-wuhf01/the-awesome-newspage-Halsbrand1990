@@ -1,103 +1,26 @@
-<div class="col-12 col-md-6 col-lg-4">
-    <!-- Single Featured Post -->
-    <div class="single-blog-post small-featured-post d-flex">
-        <div class="post-thumb">
-            <a href="#"><img src="img/bg-img/19.jpg" alt=""></a>
-        </div>
-        <div class="post-data">
-            <a href="#" class="post-catagory">Finance</a>
-            <div class="post-meta">
-                <a href="#" class="post-title">
-                    <h6>Pellentesque mattis arcu massa, nec fringilla turpis eleifend id.</h6>
-                </a>
-                <% let now = new Date('2019-04-14 07:00:14'); %>
-                <%= dateAndTime.format(now, 'h:mm A | MMMM DD') %>
-            </div>
-        </div>
-    </div>
-
-    <!-- Single Featured Post -->
-    <div class="single-blog-post small-featured-post d-flex">
-        <div class="post-thumb">
-            <a href="#"><img src="img/bg-img/20.jpg" alt=""></a>
-        </div>
-        <div class="post-data">
-            <a href="#" class="post-catagory">Politics</a>
-            <div class="post-meta">
-                <a href="#" class="post-title">
-                    <h6>Sed a elit euismod augue semper congue sit amet ac sapien.</h6>
-                </a>
-                <% let now = new Date('2019-04-14 07:00:14'); %>
+<% let now = new Date('2019-04-14 07:00:14'); %>
 <%= dateAndTime.format(now, 'h:mm A | MMMM DD') %>
-            </div>
-        </div>
-    </div>
 
-    <!-- Single Featured Post -->
-    <div class="single-blog-post small-featured-post d-flex">
-        <div class="post-thumb">
-            <a href="#"><img src="img/bg-img/21.jpg" alt=""></a>
-        </div>
-        <div class="post-data">
-            <a href="#" class="post-catagory">Health</a>
-            <div class="post-meta">
-                <a href="#" class="post-title">
-                    <h6>Pellentesque mattis arcu massa, nec fringilla turpis eleifend id.</h6>
-                </a>
-                <% let now = new Date('2019-04-14 07:00:14'); %>
-                <%= dateAndTime.format(now, 'h:mm A | MMMM DD') %>
+<div class="col-12 col-md-6 col-lg-4">
+        <!-- Single Featured Post -->
+        <% asidePosts.forEach(aside =>{ %>
+        <div class="single-blog-post small-featured-post d-flex">
+            <div class="post-thumb">
+                <a href="#"><img src="<%= aside.photo %>" alt=""></a>
+            </div>
+            <div class="post-data">
+                <a href="#" class="post-catagory"><%= aside.title %></a>
+                <div class="post-meta">
+                    <a href="#" class="post-title">
+                        <h6><%= aside.text %></h6>
+                    </a>
+                    <p class="post-date"><span><%= dateAndTime.format(now, 'hh:mm')%>
+                    </span> | <span><%= dateAndTime.format(now, 'MMMM DD, YYYY')%>
+                    </span></p>
+                </div>
             </div>
         </div>
-    </div>
+        <% }) %>
+    
 
-    <!-- Single Featured Post -->
-    <div class="single-blog-post small-featured-post d-flex">
-        <div class="post-thumb">
-            <a href="#"><img src="img/bg-img/22.jpg" alt=""></a>
-        </div>
-        <div class="post-data">
-            <a href="#" class="post-catagory">Finance</a>
-            <div class="post-meta">
-                <a href="#" class="post-title">
-                    <h6>Augue semper congue sit amet ac sapien. Fusce consequat.</h6>
-                </a>
-                <% let now = new Date('2019-04-14 07:00:14'); %>
-                <%= dateAndTime.format(now, 'h:mm A | MMMM DD') %>
-            </div>
-        </div>
     </div>
-
-    <!-- Single Featured Post -->
-    <div class="single-blog-post small-featured-post d-flex">
-        <div class="post-thumb">
-            <a href="#"><img src="img/bg-img/23.jpg" alt=""></a>
-        </div>
-        <div class="post-data">
-            <a href="#" class="post-catagory">Travel</a>
-            <div class="post-meta">
-                <a href="#" class="post-title">
-                    <h6>Pellentesque mattis arcu massa, nec fringilla turpis eleifend id.</h6>
-                </a>
-                <% let now = new Date('2019-04-14 07:00:14'); %>
-                <%= dateAndTime.format(now, 'h:mm A | MMMM DD') %>
-            </div>
-        </div>
-    </div>
-
-    <!-- Single Featured Post -->
-    <div class="single-blog-post small-featured-post d-flex">
-        <div class="post-thumb">
-            <a href="#"><img src="img/bg-img/24.jpg" alt=""></a>
-        </div>
-        <div class="post-data">
-            <a href="#" class="post-catagory">Politics</a>
-            <div class="post-meta">
-                <a href="#" class="post-title">
-                    <h6>Augue semper congue sit amet ac sapien. Fusce consequat.</h6>
-                </a>
-                <% let now = new Date('2019-04-14 07:00:14'); %>
-                <%= dateAndTime.format(now, 'h:mm A | MMMM DD') %>
-            </div>
-        </div>
-    </div>
-</div>
