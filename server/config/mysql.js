@@ -7,7 +7,7 @@ module.exports = {
          user: 'root',
          password: 'root',
          port: '3306',
-         database: 'the_awesome_newpage'
+         database: 'the_awesome_newspage'
       })
    }
 }

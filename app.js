@@ -14,11 +14,7 @@ app.use(logger('dev', {
    skip: req => (!req.url.endsWith(".html") && req.url.indexOf('.') > -1)
 }));
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-   extended: true
-}));
+
 
 // sæt viewengine til ejs 
 app.set('view engine', 'ejs');
@@ -26,7 +22,6 @@ app.set('view engine', 'ejs');
 app.set('views', './server/views');
 
 app.locals.dateAndTime = require('date-and-time');
-
 
 /* indlæs alle de routes serveren skal håndtere
  * dette sker igennem en ny fil, for at splitte koden op i smartere blokke */
